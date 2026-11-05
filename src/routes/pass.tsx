@@ -74,6 +74,15 @@ function PassPage() {
   );
 }
 
+/** Formats the remaining Fire Pass season time as D H / H M / M S. */
+function passTimeLeft(ms: number) {
+  const t = Math.max(0, Math.floor(ms / 1000));
+  const d = Math.floor(t / 86400), h = Math.floor((t % 86400) / 3600), m = Math.floor((t % 3600) / 60);
+  if (d > 0) return `${d}D ${h}H`;
+  if (h > 0) return `${h}H ${m}M`;
+  return `${m}M ${String(t % 60).padStart(2, "0")}S`;
+}
+
 function RewardTile({ children, label, earned, premium, locked }: { children: React.ReactNode; label: string; earned: boolean; premium?: boolean; locked?: boolean }) {
   return <div className={`fire-pass-cell${premium ? " fire-pass-cell-premium" : ""}`} aria-label={`${label}: ${earned ? "received" : locked ? "premium locked" : "upcoming"}`}>
     <div className={`fire-pass-reward${earned ? " fire-pass-reward-earned" : ""}`}>
