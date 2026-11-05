@@ -59,7 +59,7 @@ function PassPage() {
             <RewardTile label={`${fmt(free.coins)} coins`} earned={earned}><img src={ART.coin} alt="Coins" /><strong>x{fmt(free.coins)}</strong></RewardTile>
             <RewardTile label={`${free.spins} spins`} earned={earned}><img src={ART.wheelSpin} alt="Spins" /><strong>x{free.spins}</strong></RewardTile>
             <RewardTile label={`${fmt(premium.coins)} coins, ${premium.spins} spins, ${premium.tickets} ticket`} earned={earned && s.premium} premium locked={!s.premium}>
-              <img src={ART.wheelSpin} alt="Premium spins" /><strong>x{premium.spins}</strong><small>{fmt(premium.coins)} coins · {premium.tickets} ticket</small>
+              <img src={ART.wheelSpin} alt="Premium spins" /><strong>x{premium.spins}</strong>
             </RewardTile>
             <span className="fire-pass-row-level">{level}</span>
           </div>
