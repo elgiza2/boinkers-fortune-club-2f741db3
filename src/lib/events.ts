@@ -7,11 +7,8 @@ export interface Tier { need: number; reward: EventReward; price?: { ton: number
 export interface EventDef { key: string; name: string; hours: 24 | 48; offsetH: number; allFree?: boolean; scale: number }
 
 export const LIVE_EVENTS: EventDef[] = [
-  { key: "neon-soda", name: "Neon Soda Rush", hours: 24, offsetH: 0, scale: 1.1 },
-  { key: "sun-crystal", name: "Solar Crystal Hunt", hours: 48, offsetH: 6, scale: 1.6 },
-  { key: "ice-orb", name: "Ice Orb Expedition", hours: 24, offsetH: 12, allFree: true, scale: 0.9 },
-  { key: "volcano", name: "Volcano Jackpot", hours: 48, offsetH: 18, scale: 2.2 },
-  { key: "robot", name: "Robo Arcade", hours: 24, offsetH: 4, allFree: true, scale: 1.2 },
+  { key: "neon-soda", name: "Vlad's Egg Trail", hours: 24, offsetH: 0, scale: 1.1 },
+  { key: "robot", name: "Game Loot", hours: 24, offsetH: 4, allFree: true, scale: 1.2 },
 ];
 
 export const PAID_PRICE = { ton: 0.25, stars: 25 };
@@ -23,7 +20,7 @@ export function eventTiers(def: EventDef): Tier[] {
   let need = 0;
   return Array.from({ length: TIER_COUNT }, (_, i) => {
     need += Math.round((4 + i * 3) * def.scale);
-    const paid = !def.allFree && PATTERN[i % PATTERN.length]!;
+    const paid = !def.allFree && Boolean(PATTERN[i % PATTERN.length]);
     const wheel = (i + def.key.length) % 2 === 0;
     const reward: EventReward = paid
       ? wheel ? { tickets: Math.round(15 * (1 + i / 3) * def.scale) } : { spins: Math.round(400 * (1 + i / 3) * def.scale) }

@@ -3,10 +3,8 @@ export const OFFER_MS = 4 * 3600_000;
 export interface Offer { key: string; name: string; spins: number; tickets: number; ton: number; endsIn: number; trend: "up" | "down" }
 
 const BASE = [
-  { key: "mega", name: "Mega Spins", spins: 1500, tickets: 5, ton: 2 },
-  { key: "wheel", name: "Wheel Bundle", spins: 300, tickets: 25, ton: 1.5 },
-  { key: "starter", name: "Starter Pack", spins: 250, tickets: 3, ton: 0.5 },
-  { key: "whale", name: "Whale Chest", spins: 6000, tickets: 60, ton: 7 },
+  { key: "mega", name: "Sale Blast", spins: 1500, tickets: 5, ton: 2 },
+  { key: "starter", name: "Fusion!", spins: 250, tickets: 3, ton: 0.5 },
 ];
 
 /** Deterministic 0..1 value for a window + offer, so every player sees the same deal. */

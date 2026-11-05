@@ -20,9 +20,11 @@ import offerMega from "@/assets/offer-mega.png";
 import offerWheel from "@/assets/offer-wheel.png";
 import offerStarter from "@/assets/offer-starter.png";
 import offerWhale from "@/assets/offer-whale.png";
+import cosmicEgg from "@/assets/event-cosmic-egg.png";
+import gameLoot from "@/assets/event-game-loot.png";
 import type { Sym } from "@/lib/game";
 
-export const TOKEN_ART: Record<string, string> = { pumpkin, frog, star, "neon-soda": neonSoda, "sun-crystal": sunCrystal, "ice-orb": iceOrb, volcano, robot };
+export const TOKEN_ART: Record<string, string> = { pumpkin, frog, star, "neon-soda": cosmicEgg, "sun-crystal": sunCrystal, "ice-orb": iceOrb, volcano, robot: gameLoot };
 export const SYM_ART: Record<Sym, string> = { coin, bolt, gem, chest, token: pumpkin };
 export const ART = { coin, bolt, gem, chest, wheelSpin, ton, rocket, bag, book, wheel };
 export const OFFER_ART: Record<string, string> = { mega: offerMega, wheel: offerWheel, starter: offerStarter, whale: offerWhale };

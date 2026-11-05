@@ -4,8 +4,8 @@ import { PAYTABLE, payout } from "./slots";
 import { currentOffers, OFFER_MS } from "./offers";
 
 describe("live events", () => {
-  it("has more than 5 events lasting 24h or 48h", () => {
-    expect(LIVE_EVENTS.length).toBeGreaterThan(5);
+  it("has the two reference events lasting 24h or 48h", () => {
+    expect(LIVE_EVENTS.map(e => e.name)).toEqual(["Vlad's Egg Trail", "Game Loot"]);
     expect(LIVE_EVENTS.every((e) => e.hours === 24 || e.hours === 48)).toBe(true);
   });
   it("restarts after its duration", () => {
@@ -53,6 +53,9 @@ describe("slots", () => {
 });
 
 describe("offers", () => {
+  it("has Sale Blast and Fusion bundles", () => {
+    expect(currentOffers(0).map(o => o.name)).toEqual(["Sale Blast", "Fusion!"]);
+  });
   it("change every 4 hours", () => {
     expect(currentOffers(0)).not.toEqual(currentOffers(OFFER_MS));
     expect(currentOffers(1000).map((o) => o.ton)).toEqual(currentOffers(2000).map((o) => o.ton));
