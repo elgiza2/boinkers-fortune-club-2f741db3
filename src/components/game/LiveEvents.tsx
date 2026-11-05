@@ -63,13 +63,13 @@ export function EventsRow({ now }: { now: number }) {
           const { run, endsIn } = eventRun(e, now || 0);
           return (
             <Button variant="ghost" key={e.key} onClick={() => setEvent(e)} aria-label={`Open ${e.name}`} className="h-auto shrink-0 p-0 hover:bg-transparent active:scale-90">
-              <Chip img={TOKEN_ART[e.key]} timer={now ? clock(endsIn) : "--:--:--"} label={e.name.toUpperCase()} badge={claimable(e, progressFor(s.live[e.key], run))} />
+              <Chip img={TOKEN_ART[e.key] ?? ART.gem} timer={now ? clock(endsIn) : "--:--:--"} label={e.name.toUpperCase()} badge={claimable(e, progressFor(s.live[e.key], run))} />
             </Button>
           );
         })}
         {offers.map((o) => (
           <Button variant="ghost" key={o.key} onClick={() => setOfferKey(o.key)} aria-label={`Open ${o.name} offer`} className="h-auto shrink-0 p-0 hover:bg-transparent active:scale-90">
-            <OfferChip img={OFFER_ART[o.key]} timer={now ? clock(o.endsIn) : "--:--:--"} price={o.ton} hot={o.ton >= 1.5} />
+            <OfferChip img={OFFER_ART[o.key] ?? ART.chest} timer={now ? clock(o.endsIn) : "--:--:--"} price={o.ton} hot={o.ton >= 1.5} />
           </Button>
         ))}
       </div>
