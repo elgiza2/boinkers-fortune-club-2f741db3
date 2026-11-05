@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, Clock, Info, LockKeyhole, Moon, Ticket, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -24,6 +24,12 @@ export const Route = createFileRoute("/pass")({
 function PassPage() {
   const { s } = useGame();
   const [info, setInfo] = useState(false);
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const t = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(t);
+  }, []);
+  const left = passTimeLeft(s.passEndsAt - now);
   const firstLevel = Math.max(2, s.passLevel - 2);
   const levels = Array.from({ length: 20 }, (_, i) => firstLevel + i);
   return (
@@ -32,7 +38,7 @@ function PassPage() {
         <img src={headerArt} alt="Yellow masked character under the moon" className="fire-pass-header-art" />
         <Button variant="ghost" size="icon" className="fire-pass-info" aria-label="Pass information" onClick={() => setInfo(true)}><Info /></Button>
         <Button asChild variant="ghost" size="icon" className="fire-pass-close" aria-label="Close Fire Pass"><Link to="/"><X /></Link></Button>
-        <div className="fire-pass-title"><h1>FIRE PASS</h1><span className="fire-pass-level"><Zap /> LEVEL {s.passLevel}</span></div>
+        <div className="fire-pass-title"><h1>FIRE PASS</h1><span className="fire-pass-level"><Clock /> {left}</span></div>
       </header>
       <section className="fire-pass-progress" aria-label="Pass progress">
         <p>Spin the slot and progress!</p>
