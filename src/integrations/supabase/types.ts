@@ -14,13 +14,90 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      loot_awards: {
+        Row: {
+          claimed_at: string
+          rank: number
+          run: number
+          spins: number
+          tickets: number
+          user_id: string
+        }
+        Insert: {
+          claimed_at?: string
+          rank: number
+          run: number
+          spins: number
+          tickets: number
+          user_id: string
+        }
+        Update: {
+          claimed_at?: string
+          rank?: number
+          run?: number
+          spins?: number
+          tickets?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      loot_players: {
+        Row: {
+          display_name: string
+          last_played_at: string | null
+          regenerated_at: string
+          spins: number
+          tickets: number
+          user_id: string
+        }
+        Insert: {
+          display_name?: string
+          last_played_at?: string | null
+          regenerated_at?: string
+          spins?: number
+          tickets?: number
+          user_id: string
+        }
+        Update: {
+          display_name?: string
+          last_played_at?: string | null
+          regenerated_at?: string
+          spins?: number
+          tickets?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
+      loot_scores: {
+        Row: {
+          display_name: string
+          run: number
+          tokens: number
+          user_id: string
+        }
+        Insert: {
+          display_name: string
+          run: number
+          tokens?: number
+          user_id: string
+        }
+        Update: {
+          display_name?: string
+          run?: number
+          tokens?: number
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      loot_claim: { Args: { p_run: number }; Returns: Json }
+      loot_join: { Args: never; Returns: Json }
+      loot_play: { Args: { p_bet: number }; Returns: Json }
+      loot_prize: { Args: { p_rank: number }; Returns: Json }
     }
     Enums: {
       [_ in never]: never

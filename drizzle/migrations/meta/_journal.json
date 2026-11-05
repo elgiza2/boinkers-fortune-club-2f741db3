@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "postgresql",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1793847011629,
+      "tag": "0000_game_loot_ranked_competition",
+      "breakpoints": true
+    }
+  ]
 }
