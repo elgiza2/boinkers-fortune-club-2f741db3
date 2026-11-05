@@ -327,3 +327,70 @@ body { font-family: var(--font-sans); }
 
 /* Space above the header so Telegram's own buttons never overlap the game. */
 .safe-top { padding-top: max(calc(env(safe-area-inset-top) + 8px), calc(var(--tg-safe-top, 0px) + 8px)); }
+
+/* Fire Pass: outlined arcade reward track. */
+:root, .dark {
+  --pass-violet: oklch(0.61 0.23 293);
+  --pass-violet-light: oklch(0.66 0.22 293);
+  --pass-gold: oklch(0.83 0.17 83);
+  --pass-gold-dark: oklch(0.72 0.17 67);
+  --pass-paper: oklch(0.91 0.08 89);
+  --pass-reward: oklch(0.59 0.15 116);
+  --pass-reward-edge: oklch(0.82 0.17 118);
+  --pass-sky: oklch(0.78 0.12 218);
+  --pass-outline: oklch(0.12 0 0);
+  --pass-pink: oklch(0.8 0.17 327);
+  --pass-track-gradient: linear-gradient(180deg, var(--pass-violet-light), var(--pass-violet));
+  --pass-gold-gradient: linear-gradient(180deg, var(--pass-gold), var(--pass-gold-dark));
+  --pass-chunk-shadow: inset 0 -4px 0 color-mix(in oklch, var(--pass-outline) 22%, transparent), 0 3px 0 var(--pass-outline);
+}
+.fire-pass-page { width: 100%; max-width: 448px; height: 100dvh; margin: auto; display: flex; flex-direction: column; overflow: hidden; background: var(--pass-violet); color: var(--cream); font-family: var(--font-display); letter-spacing: 0; }
+.fire-pass-header { flex: none; position: relative; width: 100%; aspect-ratio: 1.79; border-bottom: 8px solid var(--pass-gold); background: var(--pass-sky); }
+.fire-pass-header-art { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.fire-pass-title { position: absolute; left: 36%; right: 3%; bottom: 10px; }
+.fire-pass-title h1 { font-size: 36px; white-space: nowrap; line-height: 1.1; -webkit-text-stroke: 5px var(--pass-outline); paint-order: stroke fill; text-shadow: 0 3px 0 var(--pass-outline); }
+.fire-pass-level { display: inline-flex; align-items: center; gap: 5px; font-size: 19px; margin-top: 8px; padding: 2px 10px 3px 5px; border: 2px solid var(--pass-outline); background: var(--pass-violet); border-radius: 20px; -webkit-text-stroke: 2px var(--pass-outline); paint-order: stroke fill; }
+.fire-pass-level svg { width: 27px; height: 27px; padding: 3px; border-radius: 50%; background: var(--pass-gold); color: var(--cream); }
+.fire-pass-close { position: absolute; top: max(15px, env(safe-area-inset-top)); right: 10px; width: 52px; height: 52px; border: 2px solid color-mix(in oklch, var(--berry) 60%, var(--pass-outline)); border-radius: 50%; background: var(--berry); color: var(--cream); box-shadow: var(--pass-chunk-shadow); }
+.fire-pass-close:hover { background: var(--berry); filter: brightness(1.1); }
+.fire-pass-close svg { width: 33px; height: 33px; stroke-width: 5; filter: drop-shadow(0 2px 0 var(--pass-outline)); }
+.fire-pass-info { position: absolute; left: 10px; top: 40%; width: 35px; height: 35px; background: var(--pass-gold); color: var(--pass-gold-dark); border: 2px solid var(--pass-gold-dark); border-radius: 50%; box-shadow: var(--pass-chunk-shadow); }
+.fire-pass-info:hover { background: var(--pass-gold); }
+.fire-pass-info svg { width: 26px; height: 26px; stroke-width: 3; }
+.fire-pass-progress { flex: none; height: 73px; background: var(--pass-violet-light); border-top: 3px solid var(--pass-outline); padding: 3px 10px 10px; }
+.fire-pass-progress p { text-align: center; font-size: 19px; line-height: 1.3; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; }
+.fire-pass-progress-track { position: relative; height: 28px; margin: 7px 45px 0 47px; }
+.fire-pass-progress-track progress { appearance: none; display: block; width: 100%; height: 24px; border: 3px solid var(--pass-gold-dark); background: var(--pass-reward); }
+.fire-pass-progress-track progress::-webkit-progress-bar { background: var(--pass-reward); }
+.fire-pass-progress-track progress::-webkit-progress-value { background: var(--lime); border-top: 4px solid var(--pass-reward-edge); }
+.fire-pass-progress-track progress::-moz-progress-bar { background: var(--lime); }
+.fire-pass-progress-value { position: absolute; inset: 0; text-align: center; font-size: 16px; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; }
+.fire-pass-progress-ticket { position: absolute; left: -36px; top: -8px; width: 58px; height: 37px; z-index: 2; color: var(--pass-outline); transform: rotate(-12deg); }
+.fire-pass-progress-ticket > svg:first-child { width: 58px; height: 42px; fill: var(--pass-gold); stroke-width: 2; filter: drop-shadow(-5px -4px 0 var(--pass-pink)); }
+.fire-pass-progress-ticket > svg:last-child { position: absolute; width: 18px; height: 18px; left: 21px; top: 11px; fill: var(--cream); }
+.fire-pass-progress-badge { position: absolute; right: -25px; top: -5px; height: 36px; min-width: 36px; padding: 2px; border: 3px solid var(--pass-gold-dark); border-radius: 8px; background: var(--pass-gold); text-align: center; font-size: 22px; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; box-shadow: 0 2px 0 var(--pass-outline); }
+.fire-pass-columns { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); flex: none; height: 70px; border-block: 4px solid var(--pass-outline); }
+.fire-pass-columns > div { display: grid; place-items: center; background: var(--pass-track-gradient); border-right: 3px solid var(--pass-outline); }
+.fire-pass-columns > div:last-child { background: var(--pass-gold-gradient); border-right: 0; }
+.fire-pass-ticket { width: 82px; height: 46px; display: grid; place-items: center; border: 3px solid var(--pass-outline); border-radius: 8px; box-shadow: inset 0 0 0 4px color-mix(in oklch, var(--cream) 40%, transparent), var(--pass-chunk-shadow); font-size: 20px; -webkit-text-stroke: 2px var(--pass-outline); paint-order: stroke fill; }
+.fire-pass-ticket-free { background: var(--sky); }
+.fire-pass-ticket-pink { background: var(--pass-pink); }
+.fire-pass-ticket-gold { background: var(--pass-gold); }
+.fire-pass-ticket svg { height: 30px; width: 30px; fill: var(--cream); color: var(--pass-outline); }
+.fire-pass-rewards { min-height: 0; flex: 1; overflow-y: auto; scrollbar-width: none; }
+.fire-pass-rewards::-webkit-scrollbar { display: none; }
+.fire-pass-row { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); position: relative; min-height: 140px; border-bottom: 3px solid color-mix(in oklch, var(--pass-violet) 70%, var(--pass-outline)); }
+.fire-pass-row::after { content: ""; position: absolute; top: 0; bottom: -3px; left: calc(33.333% - 6px); width: 12px; border-inline: 2px solid var(--pass-outline); background: var(--pass-gold); }
+.fire-pass-cell { display: grid; place-items: center; padding: 15px 10px; background: var(--pass-track-gradient); }
+.fire-pass-cell-premium { background: var(--pass-gold-gradient); }
+.fire-pass-reward { position: relative; width: 78px; height: 78px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 3px solid var(--pass-outline); border-radius: 6px; background: var(--pass-reward); box-shadow: inset 0 0 0 4px var(--pass-reward-edge), 0 3px 0 var(--pass-outline); }
+.fire-pass-reward > img { width: 51px; height: 51px; object-fit: contain; }
+.fire-pass-reward strong { position: absolute; bottom: -11px; font-size: 20px; line-height: 1; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; white-space: nowrap; }
+.fire-pass-reward small { position: absolute; top: calc(100% + 16px); font-size: 8px; white-space: nowrap; color: var(--cream); -webkit-text-stroke: 1px var(--pass-outline); paint-order: stroke fill; }
+.fire-pass-check { position: absolute; top: -20px; left: -18px; width: 43px; height: 43px; color: var(--lime); stroke-width: 5; filter: drop-shadow(2px 2px 0 var(--pass-outline)) drop-shadow(-1px -1px 0 var(--pass-outline)); }
+.fire-pass-lock { position: absolute; top: -12px; left: -10px; width: 22px; height: 22px; fill: var(--pass-paper); color: var(--pass-outline); }
+.fire-pass-row-level { position: absolute; z-index: 2; left: 33.333%; top: 50%; transform: translate(-50%,-50%); display: grid; place-items: center; width: 36px; height: 42px; background: var(--pass-gold-dark); border: 3px solid var(--pass-outline); border-radius: 10px; box-shadow: inset 0 0 0 3px var(--pass-gold); font-size: 23px; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; }
+.fire-pass-footer { flex: none; min-height: 76px; padding: 10px 12px max(12px, env(safe-area-inset-bottom)); background: var(--pass-paper); border-top: 3px solid var(--pass-outline); }
+.fire-pass-claim { height: 48px; padding: 0 12px; border-radius: 8px; border: 3px solid var(--pass-outline); background: var(--pass-gold); color: var(--cream); font-family: var(--font-display); font-size: 24px; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; box-shadow: var(--pass-chunk-shadow); }
+.fire-pass-claim:disabled { filter: grayscale(1); opacity: .45; }
+@media (max-width: 360px) { .fire-pass-title h1 { font-size: 29px; } .fire-pass-reward { width: 68px; height: 74px; } .fire-pass-ticket { width: 74px; } }
