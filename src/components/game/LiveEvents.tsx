@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { useGame, fmt, clock } from "@/lib/game";
 import { ART, TOKEN_ART, OFFER_ART } from "@/lib/art";
-import { LIVE_EVENTS, claimable, eventRun, progressFor, type EventReward } from "@/lib/events";
-import { currentOffers, type Offer } from "@/lib/offers";
-import { Modal } from "@/components/game/Shell";
+import { LIVE_EVENTS, claimable, eventRun, progressFor, type EventDef, type EventReward } from "@/lib/events";
+import { currentOffers } from "@/lib/offers";
+import { Button } from "@/components/ui/button";
+import { SlotsOfferDialog } from "@/components/game/OfferPresentation";
 import { Timer } from "lucide-react";
 
 export function RewardChip({ r, size = "md" }: { r: EventReward; size?: "md" | "lg" }) {
@@ -52,35 +52,28 @@ function OfferChip({ img, timer, price, hot }: { img: string; timer: string; pri
 
 export function EventsRow({ now }: { now: number }) {
   const { s } = useGame();
-  const [open, setOpen] = useState<Offer | null>(null);
+  const [offerKey, setOfferKey] = useState<string | null>(null);
+  const [event, setEvent] = useState<EventDef | null>(null);
   const offers = currentOffers(now || 0);
+  const offer = offers.find((o) => o.key === offerKey);
   return (
     <>
       <div className="flex gap-1.5 overflow-x-auto px-1 pb-1 pt-2.5 [scrollbar-width:none]">
         {LIVE_EVENTS.map((e) => {
           const { run, endsIn } = eventRun(e, now || 0);
           return (
-            <Link key={e.key} to="/event/$key" params={{ key: e.key }} aria-label={`Open ${e.name}`} className="transition-transform active:scale-90">
-              <Chip img={TOKEN_ART[e.key]!} timer={now ? clock(endsIn) : "--:--:--"} label={e.name.toUpperCase()} badge={claimable(e, progressFor(s.live[e.key], run))} />
-            </Link>
+            <Button variant="ghost" key={e.key} onClick={() => setEvent(e)} aria-label={`Open ${e.name}`} className="h-auto shrink-0 p-0 hover:bg-transparent active:scale-90">
+              <Chip img={TOKEN_ART[e.key] ?? ART.gem} timer={now ? clock(endsIn) : "--:--:--"} label={e.name.toUpperCase()} badge={claimable(e, progressFor(s.live[e.key], run))} />
+            </Button>
           );
         })}
         {offers.map((o) => (
-          <button key={o.key} onClick={() => setOpen(o)} aria-label={`Open ${o.name} offer`} className="transition-transform active:scale-90">
-            <OfferChip img={OFFER_ART[o.key]!} timer={now ? clock(o.endsIn) : "--:--:--"} price={o.ton} hot={o.ton >= 1.5} />
-          </button>
+          <Button variant="ghost" key={o.key} onClick={() => setOfferKey(o.key)} aria-label={`Open ${o.name} offer`} className="h-auto shrink-0 p-0 hover:bg-transparent active:scale-90">
+            <OfferChip img={OFFER_ART[o.key] ?? ART.chest} timer={now ? clock(o.endsIn) : "--:--:--"} price={o.ton} hot={o.ton >= 1.5} />
+          </Button>
         ))}
       </div>
-      <Modal open={!!open} onClose={() => setOpen(null)} title={open?.name ?? ""}>
-        {open && (
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex items-center gap-4"><RewardChip r={{ spins: open.spins }} size="lg" /><RewardChip r={{ tickets: open.tickets }} size="lg" /></div>
-            <p className="text-center text-xs text-cream/70">Price and amounts change every 4 hours · {clock(open.endsIn)} left</p>
-            <button className="chunk-btn h-12 w-full rounded-full bg-gradient-to-b from-sun to-sun-dark gap-2"><img src={ART.ton} alt="" className="h-6 w-6" /><span className="font-display text-lg">{open.ton} TON</span></button>
-            <p className="text-center text-[11px] text-cream/50">Payments will be connected soon — nothing is charged yet.</p>
-          </div>
-        )}
-      </Modal>
+      <SlotsOfferDialog selection={event ? { kind: "event", value: event } : offer ? { kind: "offer", value: offer } : null} now={now} onClose={() => { setEvent(null); setOfferKey(null); }} />
     </>
   );
 }

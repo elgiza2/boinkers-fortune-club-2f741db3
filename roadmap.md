@@ -1,0 +1,3 @@
+- [x] Restyle paid slots offers as cartoon overlays using existing prices and rewards.
+- [x] Show timed slots events as matching reward-trail overlays without changing mechanics.
+- [x] Check overlays on mobile and desktop.

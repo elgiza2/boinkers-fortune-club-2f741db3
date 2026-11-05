@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep Fire Pass presentation isolated in its route and scoped CSS; its reward previews must use existing passGift values because pass payouts are already automatic in the game provider.
+- Keep slots offer overlays in the shared OfferPresentation module with slots-offer scoped styles; derive rewards, prices, timers and claim state from existing offer/event helpers to keep presentation separate from game mechanics.
