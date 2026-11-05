@@ -1,6 +1,5 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { useState } from "react";
-import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUp, Check, ChevronDown, Lock, Star, Timer, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ART, TOKEN_ART } from "@/lib/art";
@@ -41,7 +40,7 @@ function EventPresentation({ def, now }: { def: EventDef; now: number }) {
     return <Button className="slots-offer-action slots-offer-step-action" disabled={done || (!tier.price && !reached)} aria-label={done ? `Reward ${i + 1} claimed` : tier.price ? `Buy reward ${i + 1}` : `Claim reward ${i + 1}`} onClick={() => {
       if (tier.price) setNotice(`Payments are not connected — ${tier.price.ton} TON / ${tier.price.stars} Stars. Nothing charged.`);
       else if (claimLive(def.key, i)) setNotice("Reward collected!");
-    }}>{done ? <Check /> : tier.price ? <><Star />{tier.price.stars}</> : "FREE"}{!done && !reached && <Lock className="slots-offer-step-lock" />}</Button>;
+    }}>{done ? <Check /> : tier.price ? <><Star />{tier.price.stars}</> : <><img src={TOKEN_ART[def.key]} alt="Tokens" />{fmt(tier.need)}</>}{!done && !reached && <Lock className="slots-offer-step-lock" />}</Button>;
   };
   if (def.key === "robot") return <>
     <img className="slots-offer-loot-art" src={TOKEN_ART["robot"]} alt="Green tank and red dragon" width={1152} height={576} />
@@ -49,7 +48,7 @@ function EventPresentation({ def, now }: { def: EventDef; now: number }) {
       <div className="slots-offer-loot-stats"><div><img src={ART.chest} alt="Reward chest" /><strong>{tiers.length}</strong><small>1 PLAYER</small></div><div><strong>COLLECT</strong><img src={TOKEN_ART["robot"]} alt="" /><small><Timer />{now ? clock(endsIn) : "--:--:--"}</small></div></div>
       {next && <div className="slots-offer-loot-claim"><img src={TOKEN_ART["robot"]} alt="Event tokens" /><div><progress value={Math.min(p.tokens, next.need)} max={next.need} /><strong>{fmt(p.tokens)} / {fmt(next.need)}</strong><Button className="slots-offer-action" disabled={p.tokens < next.need} onClick={() => { if (claimLive(def.key, nextIndex)) setNotice("Reward collected!"); }}>CLAIM</Button></div><Reward tier={next} /></div>}
       <div className="slots-offer-loot-standings"><div className="slots-offer-player-row"><strong>1</strong><span className="slots-offer-avatar">Y</span><div><b>YOU</b><span>{fmt(p.tokens)} <img src={TOKEN_ART["robot"]} alt="Event tokens" /></span></div><img src={ART.chest} alt="Reward chest" /></div>
-        <div className="slots-offer-loot-rewards">{tiers.map((tier, i) => <div className="slots-offer-loot-row" key={i}><strong>{i + 1}</strong><div><span>{fmt(tier.need)} TOKENS</span><Reward tier={tier} /></div>{action(tier, i)}</div>)}</div>
+        <div className="slots-offer-loot-empty">No other players yet</div>
       </div>
     </div>
     {notice && <p className="slots-offer-notice" role="status">{notice}</p>}<Countdown ms={endsIn} now={now} />
@@ -57,12 +56,12 @@ function EventPresentation({ def, now }: { def: EventDef; now: number }) {
   const final = tiers[tiers.length - 1];
   return <>
     <div className="slots-offer-token-balance"><img src={TOKEN_ART[def.key]} alt="Egg tokens" /><strong>{fmt(p.tokens)}</strong></div>
-    {final && <div className="slots-offer-egg-grand"><img src={TOKEN_ART[def.key]} alt="Cosmic egg" /><strong>{fmt(final.need)}</strong><Reward tier={final} />{action(final, tiers.length - 1)}<ArrowUp className="slots-offer-grand-arrow" /></div>}
+    {final && <div className="slots-offer-egg-grand"><Reward tier={final} large />{action(final, tiers.length - 1)}<ArrowUp className="slots-offer-grand-arrow" /></div>}
     <div className="slots-offer-trail-scroll"><div className="slots-offer-trail">{tiers.map((tier, i) => {
       const row = Math.floor(i / 3), col = row % 2 === 0 ? i % 3 : 2 - i % 3;
       const done = p.claimed.includes(i), active = !done && p.tokens >= tier.need;
       return <div key={i} className={`slots-offer-step slots-offer-position-${i} ${active ? "slots-offer-step-active" : ""} ${done ? "slots-offer-step-done" : ""}`}>
-        <img className="slots-offer-step-token" src={TOKEN_ART[def.key]} alt="Cosmic egg" /><strong className="slots-offer-step-need">{fmt(tier.need)}</strong><Reward tier={tier} />{action(tier, i)}
+        <Reward tier={tier} large />{action(tier, i)}
         {i < tiers.length - 1 && <span className={`slots-offer-trail-arrow ${i % 3 === 2 ? "slots-offer-trail-up" : row % 2 ? "slots-offer-trail-left" : "slots-offer-trail-right"}`}>{col === 0 && i % 3 === 2 || col === 2 && i % 3 === 2 ? <ArrowUp /> : <ArrowRight />}</span>}
       </div>;
     })}</div></div>
@@ -74,7 +73,6 @@ function PaidPresentation({ offer, now }: { offer: Offer; now: number }) {
   const payment = () => setNotice(true);
   if (offer.key === "starter") return <>
     <div className="slots-offer-fusion-poster"><img src={fusionScene} alt="Masked hero and knight joining fingers in a lightning burst" width={768} height={1024} /><div className="slots-offer-fusion-copy">COMPLETE ANY<br /><em>JUST A SQUIRE</em><br />CHAPTER NOW!</div><div className="slots-offer-fusion-prize"><Reward tier={{ need: 0, reward: { spins: offer.spins } }} large /><Reward tier={{ need: 0, reward: { tickets: offer.tickets } }} large /></div></div>
-    <Button asChild className="slots-offer-action slots-offer-chapter"><Link to="/upgrade"><img src={ART.book} alt="" />FINISH ANY CHAPTER</Link></Button>
     <Button className="slots-offer-action slots-offer-buy" onClick={payment}><img src={ART.ton} alt="" />{offer.ton} TON</Button>
     {notice && <p role="status" className="slots-offer-notice">Payments are not connected yet — nothing has been charged.</p>}<Countdown ms={offer.endsIn} now={now} />
   </>;
