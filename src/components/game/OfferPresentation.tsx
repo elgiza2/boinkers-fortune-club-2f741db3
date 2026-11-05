@@ -44,11 +44,11 @@ function EventPresentation({ def, now }: { def: EventDef; now: number }) {
     }}>{done ? <Check /> : tier.price ? <><Star />{tier.price.stars}</> : "FREE"}{!done && !reached && <Lock className="slots-offer-step-lock" />}</Button>;
   };
   if (def.key === "robot") return <>
-    <img className="slots-offer-loot-art" src={TOKEN_ART.robot} alt="Green tank and red dragon" width={1152} height={576} />
+    <img className="slots-offer-loot-art" src={TOKEN_ART["robot"]} alt="Green tank and red dragon" width={1152} height={576} />
     <div className="slots-offer-loot-panel">
-      <div className="slots-offer-loot-stats"><div><img src={ART.chest} alt="Reward chest" /><strong>{tiers.length}</strong><small>1 PLAYER</small></div><div><strong>COLLECT</strong><img src={TOKEN_ART.robot} alt="" /><small><Timer />{now ? clock(endsIn) : "--:--:--"}</small></div></div>
-      {next && <div className="slots-offer-loot-claim"><img src={TOKEN_ART.robot} alt="Event tokens" /><div><progress value={Math.min(p.tokens, next.need)} max={next.need} /><strong>{fmt(p.tokens)} / {fmt(next.need)}</strong><Button className="slots-offer-action" disabled={p.tokens < next.need} onClick={() => { if (claimLive(def.key, nextIndex)) setNotice("Reward collected!"); }}>CLAIM</Button></div><Reward tier={next} /></div>}
-      <div className="slots-offer-loot-standings"><div className="slots-offer-player-row"><strong>1</strong><span className="slots-offer-avatar">Y</span><div><b>YOU</b><span>{fmt(p.tokens)} <img src={TOKEN_ART.robot} alt="Event tokens" /></span></div><img src={ART.chest} alt="Reward chest" /></div>
+      <div className="slots-offer-loot-stats"><div><img src={ART.chest} alt="Reward chest" /><strong>{tiers.length}</strong><small>1 PLAYER</small></div><div><strong>COLLECT</strong><img src={TOKEN_ART["robot"]} alt="" /><small><Timer />{now ? clock(endsIn) : "--:--:--"}</small></div></div>
+      {next && <div className="slots-offer-loot-claim"><img src={TOKEN_ART["robot"]} alt="Event tokens" /><div><progress value={Math.min(p.tokens, next.need)} max={next.need} /><strong>{fmt(p.tokens)} / {fmt(next.need)}</strong><Button className="slots-offer-action" disabled={p.tokens < next.need} onClick={() => { if (claimLive(def.key, nextIndex)) setNotice("Reward collected!"); }}>CLAIM</Button></div><Reward tier={next} /></div>}
+      <div className="slots-offer-loot-standings"><div className="slots-offer-player-row"><strong>1</strong><span className="slots-offer-avatar">Y</span><div><b>YOU</b><span>{fmt(p.tokens)} <img src={TOKEN_ART["robot"]} alt="Event tokens" /></span></div><img src={ART.chest} alt="Reward chest" /></div>
         <div className="slots-offer-loot-rewards">{tiers.map((tier, i) => <div className="slots-offer-loot-row" key={i}><strong>{i + 1}</strong><div><span>{fmt(tier.need)} TOKENS</span><Reward tier={tier} /></div>{action(tier, i)}</div>)}</div>
       </div>
     </div>
