@@ -1,0 +1,3 @@
+[{"capability":"code","source":"github elgizaiiio/boinkers-fortune-club-updated","outcome":"migrate","status":"done","next_action":null},
+{"capability":"schema/records","source":"supabase migrations (unused by app code; state in localStorage)","outcome":"files kept, not applied","status":"accepted","next_action":"enable Cloud when backend is wanted"},
+{"capability":"auth","source":"none","outcome":"n/a","status":"accepted","next_action":null}]
