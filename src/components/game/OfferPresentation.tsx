@@ -79,7 +79,11 @@ function PaidPresentation({ offer, now }: { offer: Offer; now: number }) {
     {notice && <p role="status" className="slots-offer-notice">Payments are not connected yet — nothing has been charged.</p>}<Countdown ms={offer.endsIn} now={now} />
   </>;
   const upcoming = currentOffers(now + offer.endsIn).find(o => o.key === offer.key);
-  const bundle = (value: Offer, locked: boolean) => <div className="slots-offer-sale-panel"><div className="slots-offer-sale-rewards"><Reward tier={{ need: 0, reward: { spins: value.spins } }} large /><Reward tier={{ need: 0, reward: { tickets: value.tickets } }} large /></div><Button className="slots-offer-action slots-offer-sale-buy" disabled={locked} onClick={payment}><img src={ART.ton} alt="" />{value.ton} TON{locked && <Lock />}</Button></div>;
+  const bundle = (value: Offer, locked: boolean) => {
+    const part = Math.floor(value.spins / 4);
+    const rewards = [{ spins: part }, { spins: part }, { tickets: value.tickets }, { spins: part }, { spins: value.spins - part * 3 }];
+    return <div className="slots-offer-sale-panel"><div className="slots-offer-sale-rewards">{rewards.map((reward, i) => <Reward key={i} tier={{ need: 0, reward }} large />)}</div><Button className="slots-offer-action slots-offer-sale-buy" disabled={locked} onClick={payment}><img src={ART.ton} alt="" />{value.ton} TON{locked && <Lock />}</Button></div>;
+  };
   return <>
     <div className="slots-offer-sale-subtitle">SPINS + WHEEL SPINS</div>
     <div className="slots-offer-sale-scroll">{bundle(offer, false)}<ChevronDown className="slots-offer-sale-arrow" /><div className="slots-offer-sale-panel slots-offer-sale-free"><div className="slots-offer-sale-chests">{[0,1,2,3,4].map(i => <img key={i} src={ART.chest} alt="Locked chest" className={`slots-offer-chest-${i}`} />)}</div><Button className="slots-offer-action slots-offer-sale-buy" disabled>FREE <Lock /></Button></div><ChevronDown className="slots-offer-sale-arrow" />{upcoming && bundle(upcoming, true)}</div>

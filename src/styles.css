@@ -457,7 +457,10 @@ body { font-family: var(--font-sans); }
 .slots-offer-sale-subtitle { text-align:center; font-size:22px; -webkit-text-stroke:3px var(--ink); paint-order:stroke fill; margin-bottom:8px; }
 .slots-offer-sale-scroll { flex:1; min-height:0; overflow:auto; scrollbar-width:none; }
 .slots-offer-sale-panel { border:5px solid var(--offer-magenta); border-radius:24px; background:var(--sun); padding:12px 13px 10px; }
-.slots-offer-sale-rewards { display:flex; justify-content:space-evenly; gap:10px; background:var(--cream); border-radius:12px; padding:10px 3px; }
+.slots-offer-sale-rewards { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:5px; background:var(--cream); border-radius:12px; padding:8px 3px; }
+.slots-offer-sale-rewards .slots-offer-reward-large { font-size:20px; color:var(--cream); }
+.slots-offer-sale-rewards .slots-offer-reward-large img { width:42px; height:42px; }
+.slots-offer-sale-rewards .slots-offer-reward-large:nth-child(3) { outline:3px solid var(--grape); background:var(--sun); border-radius:6px; }
 .slots-offer-sale-buy { display:flex; margin:9px auto 0; width:60%; height:38px; }
 .slots-offer-sale-buy img { width:23px; height:23px; }
 .slots-offer-sale-arrow { display:block; height:30px; width:48px; margin:0 auto; stroke-width:5; color:var(--cream); background:var(--sky); filter:drop-shadow(0 2px 0 var(--ink)); }
