@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useGame, fmt, clock } from "@/lib/game";
 import { ART, TOKEN_ART, OFFER_ART } from "@/lib/art";
-import { LIVE_EVENTS, claimable, eventRun, progressFor, type EventDef, type EventReward } from "@/lib/events";
+import { LIVE_EVENTS, eventRun, type EventDef, type EventReward } from "@/lib/events";
 import { currentOffers } from "@/lib/offers";
 import { Button } from "@/components/ui/button";
 import { SlotsOfferDialog } from "@/components/game/OfferPresentation";
@@ -16,15 +16,9 @@ export function RewardChip({ r, size = "md" }: { r: EventReward; size?: "md" | "
   );
 }
 
-function Chip({ img, timer, label, badge, badgeIcon }: { img: string; timer: string; label: string; badge?: string | number; badgeIcon?: string }) {
+function Chip({ img, timer, label }: { img: string; timer: string; label: string }) {
   return (
     <span className="relative flex w-[62px] shrink-0 flex-col items-center">
-      {!!badge && (
-        <span className="absolute right-0 top-0 z-10 flex h-4 min-w-4 items-center gap-0.5 rounded-full border-2 border-ink bg-berry px-0.5 font-display text-[9px] leading-none text-cream">
-          {badgeIcon && <img src={badgeIcon} alt="" className="h-2.5 w-2.5 object-contain" />}
-          {badge}
-        </span>
-      )}
       <img src={img} alt="" className="h-11 w-11 object-contain drop-shadow-[0_3px_0_var(--ink)]" />
       <span className="mt-0.5 rounded-full bg-cream px-1.5 font-display text-[9px] leading-[14px] text-berry">{timer}</span>
       <span className="mt-0.5 line-clamp-2 text-center font-display text-[9px] leading-[10px] text-cream text-outline">{label}</span>
@@ -33,7 +27,6 @@ function Chip({ img, timer, label, badge, badgeIcon }: { img: string; timer: str
 }
 
 export function EventsRow({ now }: { now: number }) {
-  const { s } = useGame();
   const [offerKey, setOfferKey] = useState<string | null>(null);
   const [event, setEvent] = useState<EventDef | null>(null);
   const offers = currentOffers(now || 0);
@@ -42,16 +35,16 @@ export function EventsRow({ now }: { now: number }) {
     <>
       <div className="flex gap-1.5 overflow-x-auto px-1 pb-1 pt-2.5 [scrollbar-width:none]">
         {LIVE_EVENTS.map((e) => {
-          const { run, endsIn } = eventRun(e, now || 0);
+          const { endsIn } = eventRun(e, now || 0);
           return (
             <Button variant="ghost" key={e.key} onClick={() => setEvent(e)} aria-label={`Open ${e.name}`} className="h-auto shrink-0 p-0 hover:bg-transparent active:scale-90">
-              <Chip img={TOKEN_ART[e.key] ?? ART.gem} timer={now ? clock(endsIn) : "--:--:--"} label={e.name.toUpperCase()} badge={claimable(e, progressFor(s.live[e.key], run))} />
+              <Chip img={TOKEN_ART[e.key] ?? ART.gem} timer={now ? clock(endsIn) : "--:--:--"} label={e.name.toUpperCase()} />
             </Button>
           );
         })}
         {offers.map((o) => (
           <Button variant="ghost" key={o.key} onClick={() => setOfferKey(o.key)} aria-label={`Open ${o.name} offer`} className="h-auto shrink-0 p-0 hover:bg-transparent active:scale-90">
-            <Chip img={OFFER_ART[o.key] ?? ART.chest} timer={now ? clock(o.endsIn) : "--:--:--"} label={o.name.toUpperCase()} badge={o.ton} badgeIcon={ART.ton} />
+            <Chip img={OFFER_ART[o.key] ?? ART.chest} timer={now ? clock(o.endsIn) : "--:--:--"} label={o.name.toUpperCase()} />
           </Button>
         ))}
       </div>

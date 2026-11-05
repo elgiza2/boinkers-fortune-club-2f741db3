@@ -1,4 +1,8 @@
 - [ ] Replace generic event screens with Vlad's Egg Trail and Game Loot reference layouts.
 - [ ] Replace generic offer screens with Sale Blast and Fusion reference layouts.
 - [ ] Match the outer icons and preserve existing rewards, prices and claim actions.
+- [ ] Remove the selected numeric badge from event and offer icons.
 - [ ] Verify all four screens and reward claims on mobile and desktop.
+- [ ] Remove Fusion's selected chapter button.
+- [ ] Show large rewards in trail tiles and token requirements on free reward buttons.
+- [ ] Replace Game Loot milestone rows with real ranked players and rank rewards (requires shared player accounts and prize amounts).
