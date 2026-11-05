@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Check, Info, LockKeyhole, Moon, Ticket, X, Zap } from "lucide-react";
+import { Check, Clock, Info, LockKeyhole, Moon, Ticket, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import headerArt from "@/assets/fire-pass-header.jpg";

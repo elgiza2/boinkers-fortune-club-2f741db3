@@ -26,6 +26,7 @@ export interface GameState {
   lang: "en" | "ar";
   passXp: number;
   passLevel: number;
+  passEndsAt: number;
   premium: boolean;
   eventId: number;
   evTokens: number;
@@ -42,7 +43,7 @@ const initial = (): GameState => ({
   parts: { head: 0, body: 0, gear: 0 },
   lastSpinRegen: Date.now(), lastSoloClaim: Date.now(),
   tasksDone: [], claimedMilestones: [], sound: true, lang: "en",
-  passXp: 0, passLevel: 1, premium: false,
+  passXp: 0, passLevel: 1, passEndsAt: Date.now() + PASS_MS, premium: false,
   eventId: -1, evTokens: 0, evTier: 0,
   mergeBoard: starterBoard(), mergeBest: 1, soloBank: 0, live: {}, ton: 0,
 });
@@ -74,6 +75,8 @@ export function slotPayout(r: Sym[], bet: number) {
   return out;
 }
 
+/** Fire Pass season length: 4 days. */
+export const PASS_MS = 4 * 24 * 3600_000;
 /** Spin pass: XP needed to finish a level grows with level. */
 export function passNeed(level: number) { return Math.round(100 * Math.pow(1.35, level - 1)); }
 /** Gift for reaching a new pass level; premium players get double plus a ticket. */
