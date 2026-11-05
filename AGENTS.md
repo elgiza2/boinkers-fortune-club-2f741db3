@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep Fire Pass presentation isolated in its route and scoped CSS; its reward previews must use existing passGift values because pass payouts are already automatic in the game provider.
