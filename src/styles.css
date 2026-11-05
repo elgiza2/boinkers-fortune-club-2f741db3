@@ -457,3 +457,52 @@ body { font-family: var(--font-sans); }
 .slots-offer-progress progress::-moz-progress-bar { background: var(--lime); }
 .slots-offer-progress strong { position: absolute; inset: 0; text-align: center; font-size: 17px; -webkit-text-stroke: 2px var(--pass-outline); paint-order: stroke fill; }
 @media (max-height: 650px) { .slots-offer-dialog { gap: 8px; padding-top: 44px; } .slots-offer-title { font-size: 30px; } .slots-offer-hero { height: 23dvh; } .slots-offer-ribbon { font-size: 23px; } .slots-offer-bundle img { height: 42px; width: 42px; } .slots-offer-buy { min-height: 48px; } .slots-offer-close { height: 40px; width: 40px; } }
+
+/* Event identities share rewards/actions, but not their stage layouts. */
+:root, .dark {
+  --offer-ice-stage: linear-gradient(160deg, var(--cream), var(--sky));
+  --offer-soda-stage: linear-gradient(135deg, var(--offer-magenta), var(--grape));
+  --offer-lava-stage: linear-gradient(160deg, var(--berry), var(--sun-dark));
+  --offer-arcade-stage: linear-gradient(160deg, var(--night), var(--grape));
+}
+.slots-offer-milestone { position: absolute; top: 4px; left: 5px; font-size: 10px; color: var(--cream); -webkit-text-stroke: 1px var(--ink); paint-order: stroke fill; }
+.slots-offer-trail .slots-offer-milestone { display: none; }
+.slots-offer-event-scene { position: relative; flex: none; height: 150px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; border-block: 3px solid var(--sun); }
+.slots-offer-event-scene > span { position: relative; font-size: 20px; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; }
+.slots-offer-scene-token { height: 102px; width: 120px; object-fit: contain; position: relative; filter: drop-shadow(0 4px 0 var(--pass-outline)); }
+.slots-offer-scene-symbol { position: absolute; height: 110px; width: 110px; left: 14px; opacity: .35; }
+.slots-offer-scene-companion { position: absolute; right: 18px; top: 18px; width: 75px; height: 95px; object-fit: contain; transform: rotate(20deg); }
+.slots-offer-theme-neon-soda .slots-offer-title { color: var(--offer-magenta); }
+.slots-offer-scene-shelves { background: var(--offer-soda-stage); border-color: var(--offer-magenta); }
+.slots-offer-layout-shelves { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px 10px; padding-bottom: 10px; }
+.slots-offer-layout-shelves .slots-offer-step { min-height: 124px; background: var(--offer-soda-stage); border-color: var(--offer-magenta); border-bottom: 8px solid var(--sun); border-radius: 8px 8px 0 0; }
+.slots-offer-theme-sun-crystal .slots-offer-title { color: var(--sun); }
+.slots-offer-theme-sun-crystal .slots-offer-step { background: var(--sun-dark); border-color: var(--sun); }
+.slots-offer-scene-expedition { background: var(--offer-ice-stage); color: var(--offer-blue); border-color: var(--cream); }
+.slots-offer-layout-expedition { display: flex; flex-direction: column; gap: 18px; padding: 6px 14px 12px; position: relative; }
+.slots-offer-layout-expedition::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; border-left: 5px dashed var(--sky); }
+.slots-offer-layout-expedition .slots-offer-step { width: 83%; min-height: 90px; flex-direction: row; flex-wrap: wrap; gap: 8px; background: var(--offer-ice-stage); border-color: var(--cream); border-radius: 8px; padding: 9px 8px 0; }
+.slots-offer-layout-expedition .slots-offer-step:nth-child(even) { align-self: flex-end; }
+.slots-offer-layout-expedition .slots-offer-step-token { width: 40px; height: 40px; }
+.slots-offer-layout-expedition .slots-offer-step-reward { margin-left: auto; font-size: 19px; }
+.slots-offer-layout-expedition .slots-offer-step-action { flex-basis: calc(100% + 16px); margin-inline: -8px; }
+.slots-offer-theme-robot .slots-offer-title { color: var(--lime); }
+.slots-offer-scene-arcade { background: var(--offer-arcade-stage); border-color: var(--lime); }
+.slots-offer-layout-arcade { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; padding-bottom: 8px; }
+.slots-offer-layout-arcade .slots-offer-step { min-height: 152px; background: var(--night); border-color: var(--lime); border-radius: 4px; box-shadow: inset 0 0 0 5px var(--grape), var(--offer-shadow); padding: 12px 6px 5px; }
+.slots-offer-layout-arcade .slots-offer-step-token { width: 48px; height: 48px; }
+.slots-offer-layout-arcade .slots-offer-step-reward { font-size: 20px; margin: 5px 0; }
+.slots-offer-layout-arcade .slots-offer-step-action { width: 100%; }
+.slots-offer-theme-volcano .slots-offer-title { color: var(--sun); }
+.slots-offer-scene-jackpot { background: var(--offer-lava-stage); height: 185px; }
+.slots-offer-scene-jackpot .slots-offer-scene-token { position: absolute; left: 10px; bottom: 14px; width: 100px; height: 110px; }
+.slots-offer-jackpot-prize { display: flex; align-items: center; gap: 6px; font-size: 48px; -webkit-text-stroke: 4px var(--ink); paint-order: stroke fill; }
+.slots-offer-jackpot-prize img { width: 60px; height: 60px; object-fit: contain; }
+.slots-offer-layout-jackpot { display: flex; flex-direction: column; gap: 10px; padding-bottom: 8px; }
+.slots-offer-layout-jackpot .slots-offer-step { display: grid; grid-template-columns: 30px 1fr 1fr 82px; min-height: 78px; gap: 4px; padding: 9px 8px 9px 24px; background: var(--offer-lava-stage); border-color: var(--sun); border-radius: 8px; }
+.slots-offer-layout-jackpot .slots-offer-milestone { top: 50%; transform: translateY(-50%); }
+.slots-offer-layout-jackpot .slots-offer-step-need { font-size: 18px; }
+.slots-offer-layout-jackpot .slots-offer-step-reward { font-size: 18px; }
+.slots-offer-layout-jackpot .slots-offer-step-action { width: 100%; margin: 0; }
+.slots-offer-event .slots-offer-step-active { border-color: var(--offer-green); }
+@media (max-height: 650px) { .slots-offer-event-scene { height: 110px; } .slots-offer-scene-token { height: 75px; } .slots-offer-scene-jackpot { height: 130px; } .slots-offer-jackpot-prize { font-size: 35px; } }
