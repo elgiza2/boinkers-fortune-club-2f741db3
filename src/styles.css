@@ -394,3 +394,65 @@ body { font-family: var(--font-sans); }
 .fire-pass-claim { height: 48px; padding: 0 12px; border-radius: 8px; border: 3px solid var(--pass-outline); background: var(--pass-gold); color: var(--cream); font-family: var(--font-display); font-size: 24px; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; box-shadow: var(--pass-chunk-shadow); }
 .fire-pass-claim:disabled { filter: grayscale(1); opacity: .45; }
 @media (max-width: 360px) { .fire-pass-title h1 { font-size: 29px; } .fire-pass-reward { width: 68px; height: 74px; } .fire-pass-ticket { width: 74px; } }
+
+/* Slots offers: full-height arcade popups, isolated from other screens. */
+:root, .dark {
+  --offer-magenta: oklch(0.62 0.29 315);
+  --offer-blue: oklch(0.46 0.16 247);
+  --offer-green: oklch(0.85 0.23 130);
+  --offer-green-dark: oklch(0.61 0.17 133);
+  --offer-backdrop: color-mix(in oklch, var(--pass-outline) 76%, transparent);
+  --offer-shadow: 0 5px 0 var(--pass-outline), inset 0 -5px 0 color-mix(in oklch, var(--pass-outline) 18%, transparent);
+  --offer-poster-gradient: radial-gradient(ellipse at 50% 40%, var(--sky), var(--grape) 65%, var(--night));
+}
+.slots-offer-backdrop { position: fixed; inset: 0; z-index: 70; background: var(--offer-backdrop); }
+.slots-offer-dialog { position: fixed; z-index: 71; left: 50%; top: 50%; transform: translate(-50%, -50%); width: min(94vw, 430px); max-height: calc(100dvh - 24px); display: flex; flex-direction: column; gap: 12px; padding: 60px 9px 4px; color: var(--cream); font-family: var(--font-display); outline: none; letter-spacing: 0; }
+.slots-offer-close { position: absolute; right: 0; top: 0; width: 48px; height: 48px; border: 3px solid var(--pass-outline); border-radius: 50%; background: var(--berry); color: var(--cream); box-shadow: var(--offer-shadow); }
+.slots-offer-close:hover { background: var(--berry); filter: brightness(1.1); }
+.slots-offer-close svg { width: 32px; height: 32px; stroke-width: 5; filter: drop-shadow(0 2px 0 var(--pass-outline)); }
+.slots-offer-title { text-align: center; font-size: 38px; line-height: 1.04; color: var(--sun); -webkit-text-stroke: 5px var(--pass-outline); paint-order: stroke fill; text-shadow: 0 4px 0 var(--grape); flex: none; }
+.slots-offer-poster { position: relative; min-height: 0; border: 5px solid var(--sun); border-radius: 30px; background: var(--offer-poster-gradient); box-shadow: inset 0 0 0 3px var(--sun-dark), 0 5px 0 var(--sun-dark); overflow: hidden; padding: 12px 12px 18px; display: flex; flex-direction: column; align-items: center; }
+.slots-offer-ribbon { text-align: center; width: calc(100% + 30px); padding: 9px 8px; background: linear-gradient(var(--sun), var(--sun-dark)); border-bottom: 3px solid var(--pass-outline); font-size: 28px; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; transform: rotate(-3deg); }
+.slots-offer-hero { width: 100%; height: min(31dvh, 245px); object-fit: contain; margin: 7px auto; filter: drop-shadow(0 5px 0 var(--pass-outline)); }
+.slots-offer-bundle { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 10px 5px; background: var(--cream); border: 3px solid var(--offer-magenta); border-radius: 15px; }
+.slots-offer-bundle > div { flex: 1; display: flex; flex-direction: column; align-items: center; }
+.slots-offer-bundle img { width: 58px; height: 58px; object-fit: contain; }
+.slots-offer-bundle strong { font-size: 29px; line-height: 1; -webkit-text-stroke: 4px var(--pass-outline); paint-order: stroke fill; }
+.slots-offer-bundle span:not(.slots-offer-plus) { font-size: 12px; color: var(--ink); margin-top: 4px; }
+.slots-offer-plus { color: var(--offer-magenta); font-size: 36px; }
+.slots-offer-action { background: linear-gradient(110deg, var(--offer-green) 55%, var(--lime) 55%); border: 3px solid var(--pass-outline); color: var(--cream); box-shadow: var(--offer-shadow); font-family: var(--font-display); -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; border-radius: 9px; }
+.slots-offer-action:hover { background: linear-gradient(110deg, var(--offer-green) 55%, var(--lime) 55%); filter: brightness(1.06); }
+.slots-offer-buy { min-height: 58px; font-size: 28px; width: 88%; margin: 3px auto; }
+.slots-offer-buy img { width: 31px; height: 31px; object-fit: contain; }
+.slots-offer-countdown { flex: none; display: flex; align-items: center; justify-content: center; gap: 7px; width: fit-content; max-width: 100%; margin: 2px auto; padding: 5px 12px; border-radius: 20px; background: var(--pass-outline); font-size: 19px; white-space: nowrap; }
+.slots-offer-countdown svg { color: var(--sun); width: 27px; height: 27px; }
+.slots-offer-event { height: min(94dvh, 900px); gap: 10px; padding-top: 54px; }
+.slots-offer-event .slots-offer-title { color: var(--sky); font-size: 36px; padding: 0 4px; }
+.slots-offer-token-balance { position: absolute; top: 4px; left: 8px; display: flex; align-items: center; gap: 6px; background: var(--grape); border: 2px solid var(--pass-outline); border-radius: 22px; padding: 0 15px 0 0; font-size: 22px; }
+.slots-offer-token-balance img { height: 38px; width: 38px; object-fit: contain; }
+.slots-offer-trail-scroll { flex: 1; min-height: 0; overflow-y: auto; scrollbar-width: none; padding: 6px 7px 8px; }
+.slots-offer-trail { min-height: 480px; height: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(4, minmax(0, 1fr)); gap: 24px 29px; }
+.slots-offer-step { position: relative; min-width: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 3px solid var(--grape); border-radius: 15px; background: var(--offer-blue); box-shadow: 0 0 0 2px var(--pass-outline), var(--offer-shadow); padding: 3px 1px 0; }
+.slots-offer-step-active { background: var(--cream); border-color: var(--offer-green); }
+.slots-offer-step-done { border-color: var(--offer-green-dark); }
+.slots-offer-step-token { height: 34px; width: 34px; object-fit: contain; }
+.slots-offer-step-need { font-size: 22px; line-height: 1; -webkit-text-stroke: 3px var(--pass-outline); paint-order: stroke fill; }
+.slots-offer-step-reward { display: flex; gap: 2px; align-items: center; font-size: 13px; -webkit-text-stroke: 2px var(--pass-outline); paint-order: stroke fill; }
+.slots-offer-step-reward img { height: 20px; width: 20px; object-fit: contain; }
+.slots-offer-step-action { width: calc(100% + 8px); min-height: 30px; height: 30px; padding: 0 3px; font-size: 17px; -webkit-text-stroke: 2px var(--pass-outline); margin-top: 1px; gap: 2px; }
+.slots-offer-step-action:disabled { opacity: 1; filter: saturate(.7) brightness(.8); }
+.slots-offer-step-action svg { fill: var(--sun); color: var(--sun-dark); }
+.slots-offer-step-action .slots-offer-step-lock { position: absolute; bottom: -7px; right: -7px; width: 23px; height: 23px; fill: var(--cream); color: var(--ink); transform: rotate(12deg); }
+.slots-offer-trail-arrow { position: absolute; z-index: 2; color: var(--sun); filter: drop-shadow(0 2px 0 var(--sun-dark)); }
+.slots-offer-trail-arrow svg { height: 32px; width: 32px; stroke-width: 6; }
+.slots-offer-trail-right { left: calc(100% + 1px); top: 35%; }
+.slots-offer-trail-left { right: calc(100% + 1px); top: 35%; transform: rotate(180deg); }
+.slots-offer-trail-up { bottom: calc(100% - 2px); left: calc(50% - 16px); }
+.slots-offer-progress { position: relative; height: 27px; flex: none; margin: 0 15px; display: flex; align-items: center; }
+.slots-offer-progress img { width: 30px; height: 30px; position: relative; z-index: 1; object-fit: contain; }
+.slots-offer-progress progress { appearance: none; height: 22px; width: 100%; border: 2px solid var(--sun); background: var(--offer-blue); border-radius: 12px; overflow: hidden; }
+.slots-offer-progress progress::-webkit-progress-bar { background: var(--offer-blue); }
+.slots-offer-progress progress::-webkit-progress-value { background: var(--lime); }
+.slots-offer-progress progress::-moz-progress-bar { background: var(--lime); }
+.slots-offer-progress strong { position: absolute; inset: 0; text-align: center; font-size: 17px; -webkit-text-stroke: 2px var(--pass-outline); paint-order: stroke fill; }
+@media (max-height: 650px) { .slots-offer-dialog { gap: 8px; padding-top: 44px; } .slots-offer-title { font-size: 30px; } .slots-offer-hero { height: 23dvh; } .slots-offer-ribbon { font-size: 23px; } .slots-offer-bundle img { height: 42px; width: 42px; } .slots-offer-buy { min-height: 48px; } .slots-offer-close { height: 40px; width: 40px; } }
