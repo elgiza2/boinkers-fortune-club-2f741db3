@@ -426,6 +426,7 @@ body { font-family: var(--font-sans); }
 .slots-offer-buy img { width: 31px; height: 31px; object-fit: contain; }
 .slots-offer-countdown { flex: none; display: flex; align-items: center; justify-content: center; gap: 7px; width: fit-content; max-width: 100%; margin: 2px auto; padding: 5px 12px; border-radius: 20px; background: var(--pass-outline); font-size: 19px; white-space: nowrap; }
 .slots-offer-countdown svg { color: var(--sun); width: 27px; height: 27px; }
+.slots-offer-notice { text-align: center; font-family: var(--font-sans); font-size: 12px; color: var(--cream); background: var(--pass-outline); padding: 5px 8px; border-radius: 6px; }
 .slots-offer-event { height: min(94dvh, 900px); gap: 10px; padding-top: 54px; }
 .slots-offer-event .slots-offer-title { color: var(--sky); font-size: 36px; padding: 0 4px; }
 .slots-offer-token-balance { position: absolute; top: 4px; left: 8px; display: flex; align-items: center; gap: 6px; background: var(--grape); border: 2px solid var(--pass-outline); border-radius: 22px; padding: 0 15px 0 0; font-size: 22px; }

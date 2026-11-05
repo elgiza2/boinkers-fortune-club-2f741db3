@@ -1,6 +1,6 @@
 import * as Dialog from "@radix-ui/react-dialog";
+import { useState } from "react";
 import { ArrowRight, ArrowUp, Check, Lock, Star, Timer, X } from "lucide-react";
-import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { ART, OFFER_ART, TOKEN_ART } from "@/lib/art";
 import { clock, fmt, useGame } from "@/lib/game";
@@ -24,6 +24,7 @@ export function SlotsOfferDialog({ selection, now, onClose }: { selection: Selec
 }
 
 function PaidOffer({ offer, now }: { offer: Offer; now: number }) {
+  const [notice, setNotice] = useState(false);
   return <>
     <div className={`slots-offer-poster slots-offer-poster-${offer.key}`}>
       <div className="slots-offer-ribbon">SPECIAL OFFER</div>
@@ -34,12 +35,14 @@ function PaidOffer({ offer, now }: { offer: Offer; now: number }) {
         <div><img src={ART.wheelSpin} alt="Wheel spins" /><strong>{fmt(offer.tickets)}</strong><span>WHEEL SPINS</span></div>
       </div>
     </div>
-    <Button className="slots-offer-action slots-offer-buy" onClick={() => toast.info("Payments are not connected yet — nothing has been charged.")}><img src={ART.ton} alt="" />{offer.ton} TON</Button>
+    <Button className="slots-offer-action slots-offer-buy" onClick={() => setNotice(true)}><img src={ART.ton} alt="" />{offer.ton} TON</Button>
+    {notice && <p role="status" className="slots-offer-notice">Payments are not connected yet — nothing has been charged.</p>}
     <div className="slots-offer-countdown"><Timer /><span>ENDS IN: {now ? clock(offer.endsIn) : "--:--:--"}</span></div>
   </>;
 }
 
 function EventTrail({ def, now }: { def: EventDef; now: number }) {
+  const [notice, setNotice] = useState("");
   const { s, claimLive } = useGame();
   const { run, endsIn } = eventRun(def, now);
   const p = progressFor(s.live[def.key], run);
@@ -60,7 +63,7 @@ function EventTrail({ def, now }: { def: EventDef; now: number }) {
             <strong className="slots-offer-step-need">{fmt(tier.need)}</strong>
             <span className="slots-offer-step-reward"><img src={image} alt={tier.reward.spins ? "Spins" : tier.reward.tickets ? "Wheel spins" : "TON"} />{fmt(amount)}</span>
             <Button className="slots-offer-action slots-offer-step-action" aria-label={done ? `Reward ${i + 1} claimed` : tier.price ? `Buy reward ${i + 1}` : `Claim reward ${i + 1}`} disabled={done || (!tier.price && !reached)} onClick={() => {
-              if (tier.price) toast.info(`Payments coming soon: ${tier.price.ton} TON or ${tier.price.stars} Stars`);
+              if (tier.price) setNotice(`Payments coming soon: ${tier.price.ton} TON or ${tier.price.stars} Stars`);
               else claimLive(def.key, i);
             }}>{done ? <Check /> : tier.price ? <><Star />{tier.price.stars}</> : "FREE"}{!done && !reached && <Lock className="slots-offer-step-lock" />}</Button>
             {i < tiers.length - 1 && <span className={`slots-offer-trail-arrow ${i % 3 === 2 ? "slots-offer-trail-up" : row % 2 ? "slots-offer-trail-left" : "slots-offer-trail-right"}`}>{i % 3 === 2 ? <ArrowUp /> : <ArrowRight />}</span>}
@@ -68,6 +71,7 @@ function EventTrail({ def, now }: { def: EventDef; now: number }) {
         })}
       </div>
     </div>
+    {notice && <p role="status" className="slots-offer-notice">{notice}</p>}
     {target && <div className="slots-offer-progress"><img src={TOKEN_ART[def.key]} alt="" /><progress value={Math.min(p.tokens, target.need)} max={target.need} /><strong>{fmt(p.tokens)} / {fmt(target.need)}</strong></div>}
     <div className="slots-offer-countdown"><Timer /><span>ENDS IN: {now ? clock(endsIn) : "--:--:--"}</span></div>
   </>;
