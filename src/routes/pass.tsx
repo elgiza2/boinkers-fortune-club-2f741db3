@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Check, Clock, Info, LockKeyhole, Moon, Ticket, X } from "lucide-react";
+import { Check, Clock, LockKeyhole, Moon, Ticket, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import headerArt from "@/assets/fire-pass-header.jpg";
 import { ART } from "@/lib/art";
 import { useGame, passGift, passNeed, fmt } from "@/lib/game";
@@ -23,7 +22,6 @@ export const Route = createFileRoute("/pass")({
 
 function PassPage() {
   const { s } = useGame();
-  const [info, setInfo] = useState(false);
   const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
     const t = setInterval(() => setNow(Date.now()), 1000);
@@ -36,7 +34,6 @@ function PassPage() {
     <div className="fire-pass-page">
       <header className="fire-pass-header">
         <img src={headerArt} alt="Yellow masked character under the moon" className="fire-pass-header-art" />
-        <Button variant="ghost" size="icon" className="fire-pass-info" aria-label="Pass information" onClick={() => setInfo(true)}><Info /></Button>
         <Button asChild variant="ghost" size="icon" className="fire-pass-close" aria-label="Close Fire Pass"><Link to="/"><X /></Link></Button>
         <div className="fire-pass-title"><h1>FIRE PASS</h1><span className="fire-pass-level"><Clock /> {left}</span></div>
       </header>
@@ -69,7 +66,6 @@ function PassPage() {
         })}
       </main>
       <footer className="fire-pass-footer"><Button disabled className="fire-pass-claim">CLAIM ALL</Button></footer>
-      <Dialog open={info} onOpenChange={setInfo}><DialogContent><DialogHeader><DialogTitle>Fire Pass</DialogTitle><DialogDescription>Each spin adds XP. Rewards are credited automatically when you reach a new level. Premium rewards include double coins and spins, plus one ticket.</DialogDescription></DialogHeader></DialogContent></Dialog>
     </div>
   );
 }
