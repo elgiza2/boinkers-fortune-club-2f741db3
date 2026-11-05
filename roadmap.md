@@ -1,6 +1,4 @@
-- [x] Restyle paid slots offers as cartoon overlays using existing prices and rewards.
-- [x] Show timed slots events as matching reward-trail overlays without changing mechanics.
-- [x] Check overlays on mobile and desktop.
-- [x] Give each slots event a distinct presentation without changing rewards.
-- [x] Match paid offer chips to free event chips.
-- [x] Verify the updated cards and all event layouts on mobile and desktop.
+- [ ] Replace generic event screens with Vlad's Egg Trail and Game Loot reference layouts.
+- [ ] Replace generic offer screens with Sale Blast and Fusion reference layouts.
+- [ ] Match the outer icons and preserve existing rewards, prices and claim actions.
+- [ ] Verify all four screens and reward claims on mobile and desktop.
